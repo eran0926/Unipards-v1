@@ -30,14 +30,14 @@ import frc.robot.Constants.RobotMap;
 
 public class swerveModule {
     public int moduleNumber;
-    private SwerveTypeConstants swerveTypeConstants = null;
-    private Rotation2d angleOffset = null;
-    private Rotation2d lastAngle = null;
+    private SwerveTypeConstants swerveTypeConstants ;
+    private Rotation2d angleOffset ;
+    private Rotation2d lastAngle ;
 
-    private TalonFX mDriveFalcon = null;
-    private CANSparkMax mAngleNeo = null;
-    private CANcoder mAngleCanCoder = null;
-    private RelativeEncoder mAngleEncoder = null;
+    private TalonFX mDriveFalcon;
+    private CANSparkMax mAngleNeo;
+    private CANcoder mAngleCanCoder;
+    private RelativeEncoder mAngleEncoder;
 
     private final DutyCycleOut driveDutyCycle = new DutyCycleOut(0);
     private final VelocityVoltage driveVelocityVoltage = new VelocityVoltage(0);

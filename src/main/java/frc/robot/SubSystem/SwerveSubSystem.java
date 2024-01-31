@@ -22,9 +22,9 @@ import frc.robot.Constants.RobotMap;
 public class SwerveSubSystem extends SubsystemBase {
 
     public swerveModule[] swerveModules;
-    public SwerveDriveKinematics swerveDriveKinematics = null;
-    public SwerveDriveOdometry swerveDriveOdometry = null;
-    public AHRS navX = null;
+    public SwerveDriveKinematics swerveDriveKinematics ;
+    public SwerveDriveOdometry swerveDriveOdometry ;
+    public AHRS navX;
 
     public SwerveSubSystem(){
         navX = new AHRS(SPI.Port.kMXP, Constants.NAVX_UPDATE_RATE);
