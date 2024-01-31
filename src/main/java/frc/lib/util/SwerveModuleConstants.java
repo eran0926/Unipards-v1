@@ -4,10 +4,10 @@ import edu.wpi.first.math.geometry.Rotation2d;
 
 public class SwerveModuleConstants {
     
-    public  int driveMotorID;
-    public  int angleMotorID;
-    public  int canCoderID;
-    public  Rotation2d angleOffset;
+    public final int driveMotorID;
+    public final int angleMotorID;
+    public final int canCoderID;
+    public final Rotation2d angleOffset;
 
     public SwerveModuleConstants(int driveMotorID, int angleMotorID, int canCoderID, Rotation2d angleOffset){
         this.driveMotorID = driveMotorID;

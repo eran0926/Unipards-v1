@@ -3,13 +3,14 @@ package frc.robot.SubSystem;
 
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
-
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -110,14 +111,15 @@ public class swerveModule {
     
     
     private Rotation2d getAngle(){
-        return Rotation2d.fromDegrees(mAngleNeo.getEncoder().getPosition());
+        return Rotation2d.fromDegrees(mAngleEncoder.getPosition());
     }
 
     public Rotation2d getCanCoder(){
         return Rotation2d.fromDegrees(mAngleCanCoder.getAbsolutePosition().getValue());
     }
     public void resetToAbosolute(){
-        mAngleNeo.getEncoder().setPosition(getAngle().getDegrees() - angleOffset.getDegrees());
+       mAngleEncoder.setPosition(getAngle().getDegrees() - angleOffset.getDegrees());
+       
     }
     
     private void mDriveConfig(){
@@ -159,18 +161,19 @@ public class swerveModule {
 
         mAngleNeo.setInverted(swerveTypeConstants.angleMotorInverted);
         mAngleNeo.setIdleMode(Constants.ANGLE_IDLE_MODE);
-        mAngleEncoder.setPositionConversionFactor(360/swerveTypeConstants.angleGearRadio);
-        mAngleNeo.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
+        
+        mAngleNeo.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 500);
 
         mAngleNeo.burnFlash();
         
         resetToAbosolute();
     }
+    
     private void mAngleCanCoderConfig(){
         CANcoderConfiguration canConfig = new CANcoderConfiguration();
         canConfig.MagnetSensor.SensorDirection =SensorDirectionValue.CounterClockwise_Positive;
-        
-
+        canConfig.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
+        //canConfig.MagnetSensor.MagnetOffset = 0.0;
         mAngleCanCoder.getConfigurator().apply(canConfig);
 
     }

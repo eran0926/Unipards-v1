@@ -5,15 +5,15 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import frc.lib.convert.Convertions;
 
 public class SwerveTypeConstants {
-    public  double wheelDiameter;
-    public  double wheelCircumference;
-    public  double angleGearRadio;
-    public  double driveGearRadio;
-    public  double anglePIDF[]; // [P, I, D]
+    public final double wheelDiameter;
+    public final double wheelCircumference;
+    public final double angleGearRadio;
+    public final double driveGearRadio;
+    public final double anglePIDF[]; // [P, I, D]
 
-    public boolean angleMotorInverted;
-    public InvertedValue driveMotorInverted;
-    public InvertedValue canCoderInverted;
+    public final boolean angleMotorInverted;
+    public final InvertedValue driveMotorInverted;
+    public final InvertedValue canCoderInverted;
 
     public SwerveTypeConstants(
         double wheelDiameter, double angleGearRadio, double driveGearRadio, 

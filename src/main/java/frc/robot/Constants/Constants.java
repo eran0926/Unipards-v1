@@ -47,7 +47,7 @@ public class Constants {
     public static final double SWERVE_DRIVE_MOTOR_OPENLOOPRAMP = 0.25;
     public static final double SWERVE_DRIVE_MOTOR_CLOSELOOPRAMP = 0.0;
     public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
-    public static final CANSparkMax.IdleMode ANGLE_IDLE_MODE = CANSparkMax.IdleMode.kBrake;
+    public static final CANSparkMax.IdleMode ANGLE_IDLE_MODE = CANSparkMax.IdleMode.kCoast;
 
     public static final double DRIVEJOYSTICK_DEADBAND = 0.05;
 
