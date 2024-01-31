@@ -12,7 +12,7 @@ public class Constants {
 
     public static boolean NAVX_INVERTED = true;
     public static byte NAVX_UPDATE_RATE = 127;
-    public static final double NAVX_FUSEDHEADING_OFFSET = 0.0;
+    public static final double NAVX_FUSEDHEADING_OFFSET = -2.50;
 
     public final static double MAX_VOLTAGE = 12.0;
 
@@ -25,7 +25,7 @@ public class Constants {
     public static final double SWERVE_CHASSIS_TRACKWIDTH_METERS = 0.62865;
     public static final double SWERVE_CHASSIS_WHEELBASE_METERS = 0.62865;
     public static final double SWERVE_WHEEL_CIRCUMFERENCE = Convertions.inchesToMeters(4.0) * Math.PI;
-    public static final double SWERVE_MAX_SPEED = 4.5;//Wait for test.
+    public static final double SWERVE_MAX_SPEED = 4.5; //Wait for test.
     public static final double SWERVE_MAX_ANGULAR_VELOCITY = 4.5;//Wait for test.
 
     public static final double SWERVE_POV_MOVE_SPEED = 0.2;
@@ -39,15 +39,15 @@ public class Constants {
     public static final double SWERVE_DRIVE_PEAK_CURRENT_DURATION = 0.1;
     public static final boolean SWERVE_DRIVE_CURRENT_ENABLED = true;
 
-    public static final double SWERVE_DRIVE_PID[] = {0.01, 0.0, 0.0};
-    public static final double SWERVE_DRIVE_KS = (0.0/MAX_VOLTAGE);
-    public static final double SWERVE_DRIVE_KV = (0.0/MAX_VOLTAGE);
-    public static final double SWERVE_DRIVE_KA = (0.0/MAX_VOLTAGE);
+    public static final double SWERVE_DRIVE_PID[] = {0.05, 0.0, 0.0}; // TO DO : Using Tuner.
+    public static final double SWERVE_DRIVE_KS = (0.32/MAX_VOLTAGE);
+    public static final double SWERVE_DRIVE_KV = (1.51/MAX_VOLTAGE);
+    public static final double SWERVE_DRIVE_KA = (0.27/MAX_VOLTAGE);
 
     public static final double SWERVE_DRIVE_MOTOR_OPENLOOPRAMP = 0.25;
     public static final double SWERVE_DRIVE_MOTOR_CLOSELOOPRAMP = 0.0;
     public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
-    public static final CANSparkMax.IdleMode ANGLE_IDLE_MODE = CANSparkMax.IdleMode.kCoast;
+    public static final CANSparkMax.IdleMode ANGLE_IDLE_MODE = CANSparkMax.IdleMode.kBrake;
 
     public static final double DRIVEJOYSTICK_DEADBAND = 0.05;
 

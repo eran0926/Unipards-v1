@@ -43,7 +43,8 @@ public class swerveModule {
     private final VelocityVoltage driveVelocityVoltage = new VelocityVoltage(0);
     //private final PositionVoltage ANGLE_POSITION = new PositionVoltage(0);
 
-    private final SimpleMotorFeedforward fMotorFeedforward = new SimpleMotorFeedforward(Constants.SWERVE_DRIVE_KS, Constants.SWERVE_DRIVE_KV, Constants.SWERVE_DRIVE_KA);
+    private final SimpleMotorFeedforward fMotorFeedforward = new SimpleMotorFeedforward(
+        Constants.SWERVE_DRIVE_KS, Constants.SWERVE_DRIVE_KV, Constants.SWERVE_DRIVE_KA);
     
     public swerveModule(int moduleNumber,
         SwerveTypeConstants swerveTypeConstants,
@@ -58,13 +59,14 @@ public class swerveModule {
         mAngleNeo = new CANSparkMax(angleMotorID,MotorType.kBrushless);
         mAngleConfig();
         mAngleEncoder = mAngleNeo.getEncoder();
+        mAngleEncoder.setPositionConversionFactor((360.0/swerveTypeConstants.angleGearRadio));
         
         mAngleCanCoder = new CANcoder(canCoderID);
         mAngleCanCoderConfig();
 
         resetToAbosolute();
 
-        //lastAngle = getState().angle;
+        lastAngle = getState().angle;
 
     }
     
@@ -110,6 +112,10 @@ public class swerveModule {
     private Rotation2d getAngle(){
         return Rotation2d.fromDegrees(mAngleNeo.getEncoder().getPosition());
     }
+
+    public Rotation2d getCanCoder(){
+        return Rotation2d.fromDegrees(mAngleCanCoder.getAbsolutePosition().getValue());
+    }
     public void resetToAbosolute(){
         mAngleNeo.getEncoder().setPosition(getAngle().getDegrees() - angleOffset.getDegrees());
     }
@@ -140,6 +146,7 @@ public class swerveModule {
         driveConfig.Feedback.SensorToMechanismRatio = swerveTypeConstants.driveGearRadio;
         mDriveFalcon.getConfigurator().apply(driveConfig);
     }
+    
     private void mAngleConfig(){
         mAngleNeo.restoreFactoryDefaults();
         mAngleNeo.getPIDController().setP(swerveTypeConstants.anglePIDF[0],0);
@@ -151,18 +158,22 @@ public class swerveModule {
         mAngleNeo.enableVoltageCompensation(Constants.SWERVE_VOLTAGE_COMPENSATION);
 
         mAngleNeo.setInverted(swerveTypeConstants.angleMotorInverted);
-        mAngleEncoder.setPositionConversionFactor((360.0/swerveTypeConstants.angleGearRadio));
+        mAngleNeo.setIdleMode(Constants.ANGLE_IDLE_MODE);
+        mAngleEncoder.setPositionConversionFactor(360/swerveTypeConstants.angleGearRadio);
         mAngleNeo.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
 
         mAngleNeo.burnFlash();
+        
         resetToAbosolute();
     }
     private void mAngleCanCoderConfig(){
         CANcoderConfiguration canConfig = new CANcoderConfiguration();
         canConfig.MagnetSensor.SensorDirection =SensorDirectionValue.CounterClockwise_Positive;
+        
 
         mAngleCanCoder.getConfigurator().apply(canConfig);
 
     }
+    
     
 }

@@ -2,6 +2,7 @@ package frc.robot.SubSystem;
 
 import com.kauailabs.navx.frc.AHRS;
 
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -22,7 +23,7 @@ import frc.robot.Constants.RobotMap;
 public class SwerveSubSystem extends SubsystemBase {
 
     public swerveModule[] swerveModules;
-    public SwerveDriveKinematics swerveDriveKinematics ;
+    public SwerveDriveKinematics swerveDriveKinematics = Constants.SwerveDriveKinematics;
     public SwerveDriveOdometry swerveDriveOdometry ;
     public AHRS navX;
 
@@ -59,6 +60,8 @@ public class SwerveSubSystem extends SubsystemBase {
         Timer.delay(1.0);
 
         resetModulesToAbsolute();
+       
+        swerveDriveKinematics = Constants.SwerveDriveKinematics;
         swerveDriveOdometry = new SwerveDriveOdometry(swerveDriveKinematics, getYaw(), getModulePositions());
     }
 
@@ -121,15 +124,13 @@ public class SwerveSubSystem extends SubsystemBase {
     public void periodic() {
         swerveDriveOdometry.update(getYaw(), getModulePositions());
         for(swerveModule module : swerveModules){
-            //SmartDashboard.putNumber("Mod " + module.moduleNumber + " CanCoder", module.getPosition());
+            SmartDashboard.putNumber("Mod " + module.moduleNumber + " AngleOffset",module.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + module.moduleNumber + " Integrated", module.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + module.moduleNumber + " Velocity", module.getState().speedMetersPerSecond);
+            
         }
     SmartDashboard.putNumber("Roll", navX.getRoll());
     }
 
-    public void drive(double translation, double strafe, double rotation, boolean robotCentric, int povSlowMove) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drive'");
-    }
+   
 }

@@ -10,7 +10,7 @@ public class ModuleState {
         double delta = targetAngle - currentAngle.getDegrees();
         if (Math.abs(delta) > 90){
             targetVelocity = -targetVelocity;
-            targetAngle = delta > 90 ? (targetAngle -= 180) : (targetAngle += 180);
+            targetAngle = (delta > 90) ? (targetAngle -= 180) : (targetAngle += 180);
         }
         return new SwerveModuleState(targetVelocity, Rotation2d.fromDegrees(targetAngle));
     }

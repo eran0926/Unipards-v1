@@ -36,7 +36,7 @@ public class RobotContainer {
         .onTrue(new InstantCommand(swerveSubSystem::zeroGyro));
   }
   public void robotInit(){
-    swerveSubSystem.zeroGyro();
+    //swerveSubSystem.zeroGyro();
   }
 
   public Command getAutonomousCommand() {
