@@ -17,8 +17,8 @@ public class Convertions {
     public static double degreesToCanCoder(double degrees, double gearRatio) {
         return degrees / 360.0 / (gearRatio * 4096.0);
     }
-    public static double canCoderToDegrees(double canCoder, double gearRatio) {
-        return canCoder * 360.0 * (gearRatio * 4096.0);
+    public static double canCoderToDegrees(double canCoder) {
+        return canCoder * (360.0 /1.0);
     }
     public static double degreesToFalcon(double degrees, double gearRatio) {
         return degrees / 360.0 / (gearRatio * 2048.0);
@@ -29,8 +29,8 @@ public class Convertions {
     public static double degreesToNeo(double degrees, double gearRatio) {
         return degrees / 360.0 / (gearRatio * 42.0);
     }
-    public static double neoToDegrees(double neo, double gearRatio) {
-        return neo * 360.0 * (gearRatio * 42.0);
+    public static double neoToDegrees(double neo,double gearRatio) {
+        return neo * (360.0/(gearRatio * 42.0));
     }
     public static double falconToRPM(double velocitycounts, double gearRatio) {
         return velocitycounts * 600.0 / (gearRatio * 2048.0);

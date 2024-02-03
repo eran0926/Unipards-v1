@@ -1,5 +1,6 @@
 package frc.robot.SubSystem;
 
+
 import com.kauailabs.navx.frc.AHRS;
 
 
@@ -119,12 +120,19 @@ public class SwerveSubSystem extends SubsystemBase {
     public void zeroGyro(){
         navX.reset();
     }
+    public SwerveModuleState[] getModuleStates(){
+        SwerveModuleState[] states = new SwerveModuleState[4];
+        for(swerveModule mod : swerveModules){
+            states[mod.moduleNumber] = mod.getState();
+        }
+        return states;
+    }
 
     @Override
     public void periodic() {
         swerveDriveOdometry.update(getYaw(), getModulePositions());
         for(swerveModule module : swerveModules){
-            SmartDashboard.putNumber("Mod " + module.moduleNumber + " AngleOffset",module.getCanCoder().getDegrees());
+            SmartDashboard.putNumber("Mod " + module.moduleNumber + " CanCoder",module.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + module.moduleNumber + " Integrated", module.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + module.moduleNumber + " Velocity", module.getState().speedMetersPerSecond);
             

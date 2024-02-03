@@ -16,10 +16,10 @@ public class Constants {
 
     public final static double MAX_VOLTAGE = 12.0;
 
-    public final static Rotation2d FRONT_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(0.0);
-    public final static Rotation2d BACK_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(0.0);
-    public final static Rotation2d BACK_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(0.0);
-    public final static Rotation2d FRONT_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(0.0);
+    public final static Rotation2d FRONT_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(40.781250);
+    public final static Rotation2d BACK_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(81.2790315);
+    public final static Rotation2d BACK_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(100.634766);
+    public final static Rotation2d FRONT_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(254.794922);
 
     //
     public static final double SWERVE_CHASSIS_TRACKWIDTH_METERS = 0.62865;
@@ -49,7 +49,7 @@ public class Constants {
     public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
     public static final CANSparkMax.IdleMode ANGLE_IDLE_MODE = CANSparkMax.IdleMode.kCoast;
 
-    public static final double DRIVEJOYSTICK_DEADBAND = 0.05;
+    public static final double DRIVEJOYSTICK_DEADBAND = 0.08;
 
     public static final SwerveDriveKinematics SwerveDriveKinematics = new SwerveDriveKinematics(
         new Translation2d(SWERVE_CHASSIS_TRACKWIDTH_METERS / 2, SWERVE_CHASSIS_WHEELBASE_METERS / 2),

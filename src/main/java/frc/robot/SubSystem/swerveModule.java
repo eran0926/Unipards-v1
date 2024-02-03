@@ -38,8 +38,9 @@ public class swerveModule {
     private TalonFX mDriveFalcon;
     private CANSparkMax mAngleNeo;
     private CANcoder mAngleCanCoder;
-    private RelativeEncoder mAngleEncoder;
-
+    private RelativeEncoder mRelativeEncoder; 
+    
+    //private RelativeEncoder mAngleEncoder;
     private final DutyCycleOut driveDutyCycle = new DutyCycleOut(0);
     private final VelocityVoltage driveVelocityVoltage = new VelocityVoltage(0);
     //private final PositionVoltage ANGLE_POSITION = new PositionVoltage(0);
@@ -54,25 +55,27 @@ public class swerveModule {
         this.swerveTypeConstants = swerveTypeConstants;
         this.angleOffset = angleOffset;
 
+        mAngleCanCoder = new CANcoder(canCoderID);
+        mAngleCanCoderConfig();
+        
         mDriveFalcon = new TalonFX(driveMotorID,RobotMap.SWERVE_CANBUS_TYPE);
         mDriveConfig();
 
         mAngleNeo = new CANSparkMax(angleMotorID,MotorType.kBrushless);
+        mRelativeEncoder = mAngleNeo.getEncoder();
         mAngleConfig();
-        mAngleEncoder = mAngleNeo.getEncoder();
-        mAngleEncoder.setPositionConversionFactor((360.0/swerveTypeConstants.angleGearRadio));
+        //mAngleEncoder = mAngleNeo.getEncoder();
         
-        mAngleCanCoder = new CANcoder(canCoderID);
-        mAngleCanCoderConfig();
+        
+        
 
-        resetToAbosolute();
 
         lastAngle = getState().angle;
 
     }
     
     public void setDesireState(SwerveModuleState desiredState, boolean isOpenLoop){
-        desiredState = ModuleState.optimize(desiredState, lastAngle);
+        desiredState = ModuleState.optimize(desiredState, getState().angle);
         setAngle(desiredState);
         setSpeed(desiredState, isOpenLoop);
     }
@@ -101,7 +104,7 @@ public class swerveModule {
             Convertions.falconToMPS(mDriveFalcon.getPosition().getValue(), swerveTypeConstants.wheelCircumference, swerveTypeConstants.driveGearRadio),
             getAngle()
         );
-    }
+    }   
     public SwerveModulePosition getPosition(){
         return new SwerveModulePosition(
             Convertions.falconToMeters(mDriveFalcon.getPosition().getValue(), swerveTypeConstants.wheelCircumference, swerveTypeConstants.driveGearRadio),
@@ -111,16 +114,15 @@ public class swerveModule {
     
     
     private Rotation2d getAngle(){
-        return Rotation2d.fromDegrees(mAngleEncoder.getPosition());
+        //System.out.printf("%.2f",mRelativeEncoder.getPosition());
+        return Rotation2d.fromDegrees(mRelativeEncoder.getPosition());
+        
     }
 
     public Rotation2d getCanCoder(){
-        return Rotation2d.fromDegrees(mAngleCanCoder.getAbsolutePosition().getValue());
+        return Rotation2d.fromDegrees(Convertions.canCoderToDegrees(mAngleCanCoder.getAbsolutePosition().getValue()));
     }
-    public void resetToAbosolute(){
-       mAngleEncoder.setPosition(getAngle().getDegrees() - angleOffset.getDegrees());
-       
-    }
+    
     
     private void mDriveConfig(){
         TalonFXConfiguration driveConfig = new TalonFXConfiguration();
@@ -148,6 +150,11 @@ public class swerveModule {
         driveConfig.Feedback.SensorToMechanismRatio = swerveTypeConstants.driveGearRadio;
         mDriveFalcon.getConfigurator().apply(driveConfig);
     }
+    public void resetToAbosolute(){
+        double absolute = (getCanCoder().getDegrees() - angleOffset.getDegrees());
+        //System.out.printf("%.2f",absolute);
+        mRelativeEncoder.setPosition(absolute);
+    }
     
     private void mAngleConfig(){
         mAngleNeo.restoreFactoryDefaults();
@@ -161,12 +168,12 @@ public class swerveModule {
 
         mAngleNeo.setInverted(swerveTypeConstants.angleMotorInverted);
         mAngleNeo.setIdleMode(Constants.ANGLE_IDLE_MODE);
-        
+        mRelativeEncoder.setPositionConversionFactor(360 / swerveTypeConstants.angleGearRadio);
         mAngleNeo.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 500);
 
         mAngleNeo.burnFlash();
         
-        resetToAbosolute();
+        mRelativeEncoder.setPosition(getCanCoder().getDegrees() - angleOffset.getDegrees());
     }
     
     private void mAngleCanCoderConfig(){
@@ -177,6 +184,7 @@ public class swerveModule {
         mAngleCanCoder.getConfigurator().apply(canConfig);
 
     }
+    
     
     
 }
