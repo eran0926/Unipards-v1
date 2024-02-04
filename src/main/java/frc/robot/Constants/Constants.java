@@ -74,6 +74,6 @@ public class Constants {
     public static final double COLLECT_GEAR_RATIO = 1.0;
 
     public static final boolean COLLECT_INVERTED = false;
-    public static final double COLLECT_SPEED = 700;
+    public static final double COLLECT_SPEED = 1000;
 
 }
