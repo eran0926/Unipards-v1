@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Commands.drive.SwerveCommands;
 import frc.robot.SubSystem.CollectSubSystem;
+import frc.robot.SubSystem.ShootSubSystem;
 import frc.robot.SubSystem.SwerveSubSystem;
 
 public class RobotContainer {
@@ -19,6 +20,7 @@ public class RobotContainer {
    private final XboxController operatorController = new XboxController(1);
   private final SwerveSubSystem swerveSubSystem = new SwerveSubSystem();
   private final CollectSubSystem collectSubSystem = new CollectSubSystem();
+  private final ShootSubSystem shootSubSystem = new ShootSubSystem();
   public RobotContainer() {
     swerveSubSystem.setDefaultCommand(new SwerveCommands(
       swerveSubSystem,
@@ -36,12 +38,22 @@ public class RobotContainer {
   private void configureBindings() {
     new JoystickButton(driveController, XboxController.Button.kRightBumper.value)
                     .onTrue(new InstantCommand(swerveSubSystem::zeroGyro));
+
+//    Bind intake button
     new JoystickButton(operatorController, XboxController.Button.kA.value)
             .onTrue(new InstantCommand(collectSubSystem::setCollect));
     new JoystickButton(operatorController, XboxController.Button.kB.value)
             .onTrue(new InstantCommand(collectSubSystem::stopCollect));
-    new JoystickButton(operatorController, XboxController.Button.kRightBumper.value)
+    new JoystickButton(operatorController, XboxController.Button.kLeftBumper.value)
             .onTrue(new InstantCommand(collectSubSystem::reverseCollect));
+
+//    Bind shoot button
+    new JoystickButton(operatorController, XboxController.Button.kX.value)
+            .onTrue(new InstantCommand(shootSubSystem::enableShoot));
+    new JoystickButton(operatorController, XboxController.Button.kY.value)
+            .onTrue(new InstantCommand(shootSubSystem::disableableShoot));
+    new JoystickButton(operatorController, XboxController.Button.kRightBumper.value)
+            .onTrue(new InstantCommand(shootSubSystem::reverseShoot));
   }
   public void robotInit(){
     //swerveSubSystem.zeroGyro();
