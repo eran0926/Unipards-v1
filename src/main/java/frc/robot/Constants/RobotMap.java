@@ -20,5 +20,8 @@ public class RobotMap {
     public final static int BACK_RIGHT_CANCODER_MOTOR_ID = 3;
     public final static int FRONT_RIGHT_CANCODER_MOTOR_ID = 4;
 
-    public final static int MOTOR_COLLECTION_ID = 4;
+    public final static int COLLECT_MOTOR_ID = 4;
+    public final static int SHOOT_MOTOR_ID = 3;
+    public final static int ARM_LEFT_MOTOR_ID = 1;
+    public final static int ARM_RIGHT_MOTOR_ID = 2;
 }

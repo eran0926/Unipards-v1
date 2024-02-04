@@ -73,7 +73,18 @@ public class Constants {
     public static final CANSparkBase.IdleMode COLLECT_NEUTRAL_MODE = CANSparkBase.IdleMode.kBrake;
     public static final double COLLECT_GEAR_RATIO = 1.0;
 
-    public static final boolean COLLECT_INVERTED = false;
+    public static final boolean COLLECT_INVERTED = true;
     public static final double COLLECT_SPEED = 1000;
+
+    public static final boolean SHOOT_INVERTED = true;
+    public static final double SHOOT_SPEED = 1500;
+    public static final double SHOOT_OPENLOOPRAMP = 0.6;
+    public static final double SHOOT_CLOSELOOPRAMP = 0.0;
+    public static final int SHOOT_CURRENT_LIMIT = 35;
+    public static final CANSparkBase.IdleMode SHOOT_NEUTRAL_MODE = CANSparkBase.IdleMode.kCoast;
+
+    public static final int
+
+
 
 }

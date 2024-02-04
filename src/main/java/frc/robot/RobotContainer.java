@@ -34,8 +34,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-      new JoystickButton(driveController, XboxController.Button.kRightBumper.value)
-        .onTrue(new InstantCommand(swerveSubSystem::zeroGyro));
+    new JoystickButton(driveController, XboxController.Button.kRightBumper.value)
+                    .onTrue(new InstantCommand(swerveSubSystem::zeroGyro));
     new JoystickButton(operatorController, XboxController.Button.kA.value)
             .onTrue(new InstantCommand(collectSubSystem::setCollect));
     new JoystickButton(operatorController, XboxController.Button.kB.value)

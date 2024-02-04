@@ -14,7 +14,7 @@ public class CollectSubSystem extends SubsystemBase {
   public boolean isReverse = false;
 
   public CollectSubSystem() {
-    mCollectIntake = new CANSparkMax(RobotMap.MOTOR_COLLECTION_ID, CANSparkMax.MotorType.kBrushless);
+    mCollectIntake = new CANSparkMax(RobotMap.COLLECT_MOTOR_ID, CANSparkMax.MotorType.kBrushless);
     mCollectEncoder = mCollectIntake.getEncoder();
     collectConfig();
   }
