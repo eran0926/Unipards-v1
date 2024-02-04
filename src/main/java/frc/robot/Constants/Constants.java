@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 public class Constants {
 
+    public static final double SHOOT_GEAR_RATIO = 1;
     public static boolean NAVX_INVERTED = true;
     public static byte NAVX_UPDATE_RATE = 127;
     public static final double NAVX_FUSEDHEADING_OFFSET = -2.50;
@@ -84,7 +85,7 @@ public class Constants {
     public static final double SHOOT_CLOSELOOPRAMP = 0.0;
     public static final int SHOOT_CURRENT_LIMIT = 35;
     public static final CANSparkBase.IdleMode SHOOT_NEUTRAL_MODE = CANSparkBase.IdleMode.kCoast;
-
+    public final static double SHOOT_PID[] = {0.05, 0.0, 0.0,0.0};// TO DO : Using Tuner.
     public static final double ARM_PID[] = {0.02, 0.0, 0.0,0.0};// TO DO : Using Tuner.
     public static final double ARM_OPENLOOPRAMP = 0.2;
     public static final double ARM_CLOSELOOPRAMP = 0.0;

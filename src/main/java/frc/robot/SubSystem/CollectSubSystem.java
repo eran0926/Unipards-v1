@@ -21,6 +21,7 @@ public class CollectSubSystem extends SubsystemBase {
 
   private void collectConfig() {
     mCollectIntake.restoreFactoryDefaults();
+
     mCollectIntake.getPIDController().setP(Constants.COLLECT_PID[0], 0);
     mCollectIntake.getPIDController().setI(Constants.COLLECT_PID[1], 0);
     mCollectIntake.getPIDController().setD(Constants.COLLECT_PID[2], 0);
