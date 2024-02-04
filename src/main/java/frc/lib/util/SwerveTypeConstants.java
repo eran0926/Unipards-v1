@@ -11,14 +11,14 @@ public class SwerveTypeConstants {
     public final double driveGearRadio;
     public final double anglePIDF[]; // [P, I, D]
 
-    public final boolean angleMotorInverted;
+    public final InvertedValue angleMotorInverted;
     public final InvertedValue driveMotorInverted;
     public final InvertedValue canCoderInverted;
 
     public SwerveTypeConstants(
         double wheelDiameter, double angleGearRadio, double driveGearRadio, 
         double anglePIDF[], 
-        boolean angleMotorInverted, InvertedValue driveMotorInverted, InvertedValue canCoderInverted){
+        InvertedValue angleMotorInverted, InvertedValue driveMotorInverted, InvertedValue canCoderInverted){
         this.wheelDiameter = wheelDiameter;
         this.wheelCircumference = wheelDiameter * Math.PI;
         this.angleGearRadio = angleGearRadio;
@@ -36,10 +36,10 @@ public class SwerveTypeConstants {
         double angleGearRadio = SDSMK4I_L1_ANGLEGEAR;
 
         InvertedValue driveMotorInverted = InvertedValue.Clockwise_Positive;
-        boolean angleMotorInverted = true;
+        InvertedValue angleMotorInverted = InvertedValue.Clockwise_Positive;
         InvertedValue canCoderInverted = InvertedValue.Clockwise_Positive;
 
-        double anglePIDF[] = {0.01, 0.0, 0.0,0.0};
+        double anglePIDF[] = {0.01, 0.0, 0.0};
         return new SwerveTypeConstants(
             wheelDiameter, angleGearRadio,driveGearRadio,
             anglePIDF, 

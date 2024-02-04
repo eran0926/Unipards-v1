@@ -1,6 +1,7 @@
 package frc.robot.Constants;
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -33,6 +34,10 @@ public class Constants {
     public static final int SWEVRVE_PERIOD_MS = 10;
     public static final double SWERVE_VOLTAGE_COMPENSATION = 12.0;
     public static final int SWERVE_ANGLE_CURRENT_LIMIT = 35;
+    public static final double SWERVE_ANGLE_CONTINUOUS_CURRENT_LIMIT = 35;
+    public static final double SWERVE_ANGLE_PEAK_CURRENT_LIMIT = 35;
+    public static final double SWERVE_ANGLE_PEAK_CURRENT_DURATION = 0.1;
+    public static final boolean SWERVE_ANGLE_CURRENT_ENABLED = true;
 
     public static final double SWERVE_DRIVE_CONTINUOUS_CURRENT_LIMIT = 35;
     public static final double SWERVE_DRIVE_PEAK_CURRENT_LIMIT = 35;
@@ -46,8 +51,10 @@ public class Constants {
 
     public static final double SWERVE_DRIVE_MOTOR_OPENLOOPRAMP = 0.25;
     public static final double SWERVE_DRIVE_MOTOR_CLOSELOOPRAMP = 0.0;
+
+
     public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
-    public static final CANSparkMax.IdleMode ANGLE_IDLE_MODE = CANSparkMax.IdleMode.kCoast;
+    public static final NeutralModeValue ANGLE_NEUTRAL_MODE = NeutralModeValue.Coast;
 
     public static final double DRIVEJOYSTICK_DEADBAND = 0.08;
 
@@ -57,5 +64,16 @@ public class Constants {
         new Translation2d(-SWERVE_CHASSIS_TRACKWIDTH_METERS / 2, -SWERVE_CHASSIS_WHEELBASE_METERS / 2),
         new Translation2d(SWERVE_CHASSIS_TRACKWIDTH_METERS / 2, -SWERVE_CHASSIS_WHEELBASE_METERS / 2)
     );
+
+
+    public static final double COLLECT_PID[] = {0.05, 0.0, 0.0,0.0};// TO DO : Using Tuner.
+    public static final double COLLECT_OPENLOOPRAMP = 0.53;
+    public static final double COLLECT_CLOSELOOPRAMP = 0.0;
+    public static final int COLLECT_CURRENT_LIMIT = 35;
+    public static final CANSparkBase.IdleMode COLLECT_NEUTRAL_MODE = CANSparkBase.IdleMode.kBrake;
+    public static final double COLLECT_GEAR_RATIO = 1.0;
+
+    public static final boolean COLLECT_INVERTED = false;
+    public static final double COLLECT_SPEED = 700;
 
 }

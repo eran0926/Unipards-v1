@@ -20,11 +20,11 @@ public class Convertions {
     public static double canCoderToDegrees(double canCoder) {
         return canCoder * (360.0 /1.0);
     }
-    public static double degreesToFalcon(double degrees, double gearRatio) {
-        return degrees / 360.0 / (gearRatio * 2048.0);
+    public static double degreesToFalcon(double degrees) {
+        return degrees/360.0;
     }
-    public static double falconToDegrees(double falcon, double gearRatio) {
-        return falcon * 360.0 * (gearRatio * 2048.0);
+    public static double falconToDegrees(double falcon) {
+        return falcon * 360.0;
     }
     public static double degreesToNeo(double degrees, double gearRatio) {
         return degrees / 360.0 / (gearRatio * 42.0);

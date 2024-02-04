@@ -7,6 +7,7 @@ import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -28,21 +29,24 @@ import frc.lib.util.SwerveTypeConstants;
 import frc.robot.Constants.Constants;
 import frc.robot.Constants.RobotMap;
 
+import javax.print.attribute.Attribute;
+
 
 public class swerveModule {
     public int moduleNumber;
     private SwerveTypeConstants swerveTypeConstants ;
     private Rotation2d angleOffset ;
-    private Rotation2d lastAngle ;
+
 
     private TalonFX mDriveFalcon;
-    private CANSparkMax mAngleNeo;
+    private TalonFX mAngleFalcon;
     private CANcoder mAngleCanCoder;
-    private RelativeEncoder mRelativeEncoder; 
+
     
     //private RelativeEncoder mAngleEncoder;
     private final DutyCycleOut driveDutyCycle = new DutyCycleOut(0);
     private final VelocityVoltage driveVelocityVoltage = new VelocityVoltage(0);
+    private final PositionVoltage anglePositionVoltage = new PositionVoltage(0);
     //private final PositionVoltage ANGLE_POSITION = new PositionVoltage(0);
 
     private final SimpleMotorFeedforward fMotorFeedforward = new SimpleMotorFeedforward(
@@ -60,17 +64,11 @@ public class swerveModule {
         
         mDriveFalcon = new TalonFX(driveMotorID,RobotMap.SWERVE_CANBUS_TYPE);
         mDriveConfig();
-
-        mAngleNeo = new CANSparkMax(angleMotorID,MotorType.kBrushless);
-        mRelativeEncoder = mAngleNeo.getEncoder();
+        mAngleFalcon = new TalonFX(angleMotorID,RobotMap.SWERVE_CANBUS_TYPE);
         mAngleConfig();
         //mAngleEncoder = mAngleNeo.getEncoder();
-        
-        
-        
 
-
-        lastAngle = getState().angle;
+        //lastAngle = getState().angle;
 
     }
     
@@ -94,9 +92,7 @@ public class swerveModule {
         }
     }
     private void setAngle(SwerveModuleState desiredState){
-        Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.SWERVE_MAX_SPEED * 0.01)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
-        mAngleNeo.getPIDController().setReference(angle.getDegrees(), CANSparkMax.ControlType.kPosition);
-        lastAngle = angle;
+        mAngleFalcon.setControl(anglePositionVoltage.withPosition(desiredState.angle.getDegrees()));
     }
 
     public SwerveModuleState getState() {
@@ -115,8 +111,8 @@ public class swerveModule {
     
     private Rotation2d getAngle(){
         //System.out.printf("%.2f",mRelativeEncoder.getPosition());
-        return Rotation2d.fromDegrees(mRelativeEncoder.getPosition());
-        
+        return Rotation2d.fromDegrees(mAngleFalcon.getPosition().getValue());
+        // Rotation.fromDegrees(Convertions.falconToDegrees(mAngleFalcon.getPosition().getValue(),1));
     }
 
     public Rotation2d getCanCoder(){
@@ -153,27 +149,28 @@ public class swerveModule {
     public void resetToAbosolute(){
         double absolute = (getCanCoder().getDegrees() - angleOffset.getDegrees());
         //System.out.printf("%.2f",absolute);
-        mRelativeEncoder.setPosition(absolute);
+           mAngleFalcon.setPosition(Convertions.degreesToFalcon(absolute));
     }
     
     private void mAngleConfig(){
-        mAngleNeo.restoreFactoryDefaults();
-        mAngleNeo.getPIDController().setP(swerveTypeConstants.anglePIDF[0],0);
-        mAngleNeo.getPIDController().setI(swerveTypeConstants.anglePIDF[1],0);
-        mAngleNeo.getPIDController().setD(swerveTypeConstants.anglePIDF[2],0);
-        mAngleNeo.getPIDController().setFF(swerveTypeConstants.anglePIDF[3], 0);
+TalonFXConfiguration angleConfig = new TalonFXConfiguration();
+        angleConfig.Slot0.kP = swerveTypeConstants.anglePIDF[0];
+        angleConfig.Slot0.kI = swerveTypeConstants.anglePIDF[1];
+        angleConfig.Slot0.kD = swerveTypeConstants.anglePIDF[2];
 
-        mAngleNeo.setSmartCurrentLimit(Constants.SWERVE_ANGLE_CURRENT_LIMIT);
-        mAngleNeo.enableVoltageCompensation(Constants.SWERVE_VOLTAGE_COMPENSATION);
+        angleConfig.CurrentLimits.StatorCurrentLimitEnable = Constants.SWERVE_ANGLE_CURRENT_ENABLED;
+        angleConfig.CurrentLimits.StatorCurrentLimit = Constants.SWERVE_ANGLE_CURRENT_LIMIT;
+        angleConfig.CurrentLimits.SupplyCurrentThreshold = Constants.SWERVE_ANGLE_PEAK_CURRENT_LIMIT;
+        angleConfig.CurrentLimits.SupplyTimeThreshold = Constants.SWERVE_ANGLE_PEAK_CURRENT_DURATION;
 
-        mAngleNeo.setInverted(swerveTypeConstants.angleMotorInverted);
-        mAngleNeo.setIdleMode(Constants.ANGLE_IDLE_MODE);
-        mRelativeEncoder.setPositionConversionFactor(360 / swerveTypeConstants.angleGearRadio);
-        mAngleNeo.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 500);
+        angleConfig.MotorOutput.NeutralMode = Constants.ANGLE_NEUTRAL_MODE;
+        angleConfig.MotorOutput.Inverted = swerveTypeConstants.angleMotorInverted;
 
-        mAngleNeo.burnFlash();
-        
-        mRelativeEncoder.setPosition(getCanCoder().getDegrees() - angleOffset.getDegrees());
+        angleConfig.Feedback.SensorToMechanismRatio = swerveTypeConstants.angleGearRadio;
+        angleConfig.ClosedLoopGeneral.ContinuousWrap = true;
+
+
+
     }
     
     private void mAngleCanCoderConfig(){

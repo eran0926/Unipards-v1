@@ -23,7 +23,7 @@ public class RobotContainer {
       () -> driveController.getRawAxis(XboxController.Axis.kLeftY.value),
       () -> driveController.getRawAxis(XboxController.Axis.kLeftX.value),
       () -> driveController.getRawAxis(XboxController.Axis.kRightX.value),
-      driveController::getBackButton,
+      driveController::getLeftBumper,
       driveController::getPOV
       
       ));
