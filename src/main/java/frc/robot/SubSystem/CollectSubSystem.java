@@ -8,8 +8,8 @@ import frc.robot.Constants.Constants;
 import frc.robot.Constants.RobotMap;
 
 public class CollectSubSystem extends SubsystemBase {
-  private CANSparkMax mCollectIntake;
-  private RelativeEncoder mCollectEncoder;
+  private static CANSparkMax mCollectIntake;
+  private static RelativeEncoder mCollectEncoder;
   private boolean intakeEnabled = false;
   public boolean isReverse = false;
 

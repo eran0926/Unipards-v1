@@ -7,8 +7,8 @@ import frc.robot.Constants.Constants;
 import frc.robot.Constants.RobotMap;
 
 public class ShootSubSystem extends SubsystemBase {
-    private CANSparkMax mShootMotor;
-    private RelativeEncoder mShootEncoder;
+    private static CANSparkMax mShootMotor;
+    private static RelativeEncoder mShootEncoder;
     private boolean shootEnabled = false;
     private boolean isInverted = false;
     public ShootSubSystem() {
