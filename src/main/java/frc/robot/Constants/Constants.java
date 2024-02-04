@@ -9,6 +9,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import frc.lib.convert.Convertions;
 
+import java.util.HashMap;
+
 public class Constants {
 
     public static boolean NAVX_INVERTED = true;
@@ -83,7 +85,25 @@ public class Constants {
     public static final int SHOOT_CURRENT_LIMIT = 35;
     public static final CANSparkBase.IdleMode SHOOT_NEUTRAL_MODE = CANSparkBase.IdleMode.kCoast;
 
-    public static final int
+    public static final double ARM_PID[] = {0.02, 0.0, 0.0,0.0};// TO DO : Using Tuner.
+    public static final double ARM_OPENLOOPRAMP = 0.2;
+    public static final double ARM_CLOSELOOPRAMP = 0.0;
+    public static final int ARM_CURRENT_LIMIT = 35;
+    public static final CANSparkBase.IdleMode ARM_NEUTRAL_MODE = CANSparkBase.IdleMode.kBrake;
+    public static final double ARM_GEAR_RATIO = 1.0/(2.0*100.0);
+
+    public enum ArmPosition {
+        AMP,
+        SPEAKER,
+        COLLECT
+    }
+    public static HashMap<ArmPosition,Integer> ARM_POSITIONS = new HashMap<ArmPosition,Integer>(){
+        {
+            put(ArmPosition.AMP, 58);
+            put(ArmPosition.SPEAKER, 42);
+            put(ArmPosition.COLLECT, 4);
+        }
+    };
 
 
 
