@@ -92,6 +92,7 @@ public class swerveModule {
         }
     }
     private void setAngle(SwerveModuleState desiredState){
+        System.out.println(anglePositionVoltage.withPosition(desiredState.angle.getDegrees()));
         mAngleFalcon.setControl(anglePositionVoltage.withPosition(desiredState.angle.getDegrees()));
     }
 

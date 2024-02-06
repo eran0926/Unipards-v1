@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 public class Constants {
 
+    public static final double SHOOT_GEAR_RATIO = 1;
     public static boolean NAVX_INVERTED = true;
     public static byte NAVX_UPDATE_RATE = 127;
     public static final double NAVX_FUSEDHEADING_OFFSET = -2.50;
@@ -79,12 +80,12 @@ public class Constants {
     public static final double COLLECT_SPEED = 1000;
 
     public static final boolean SHOOT_INVERTED = true;
-    public static final double SHOOT_SPEED = 1500;
+    public static final double SHOOT_SPEED = 1200;
     public static final double SHOOT_OPENLOOPRAMP = 0.6;
     public static final double SHOOT_CLOSELOOPRAMP = 0.0;
     public static final int SHOOT_CURRENT_LIMIT = 35;
     public static final CANSparkBase.IdleMode SHOOT_NEUTRAL_MODE = CANSparkBase.IdleMode.kCoast;
-
+    public final static double SHOOT_PID[] = {0.05, 0.0, 0.0,0.0};// TO DO : Using Tuner.
     public static final double ARM_PID[] = {0.02, 0.0, 0.0,0.0};// TO DO : Using Tuner.
     public static final double ARM_OPENLOOPRAMP = 0.2;
     public static final double ARM_CLOSELOOPRAMP = 0.0;
@@ -93,12 +94,14 @@ public class Constants {
     public static final double ARM_GEAR_RATIO = 1.0/(2.0*100.0);
 
     public enum ArmPosition {
+        LOWEST,
         AMP,
         SPEAKER,
         COLLECT
     }
     public static HashMap<ArmPosition,Integer> ARM_POSITIONS = new HashMap<ArmPosition,Integer>(){
         {
+            put(ArmPosition.LOWEST, 0);
             put(ArmPosition.AMP, 58);
             put(ArmPosition.SPEAKER, 42);
             put(ArmPosition.COLLECT, 4);
