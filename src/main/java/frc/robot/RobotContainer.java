@@ -10,10 +10,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Commands.drive.SwerveCommands;
-import frc.robot.SubSystem.ArmSubSystem;
-import frc.robot.SubSystem.CollectSubSystem;
-import frc.robot.SubSystem.ShootSubSystem;
-import frc.robot.SubSystem.SwerveSubSystem;
+import frc.robot.SubSystem.*;
 
 public class RobotContainer {
   private final XboxController driveController = new XboxController(0);
@@ -23,6 +20,7 @@ public class RobotContainer {
   private final CollectSubSystem collectSubSystem = new CollectSubSystem();
   private final ShootSubSystem shootSubSystem = new ShootSubSystem();
   private final ArmSubSystem armSubSystem = new ArmSubSystem();
+  private final MusicSubSystem musicSubSystem = new MusicSubSystem();
   public RobotContainer() {
     swerveSubSystem.setDefaultCommand(new SwerveCommands(
       swerveSubSystem,
@@ -41,6 +39,10 @@ public class RobotContainer {
     new JoystickButton(driveController, XboxController.Button.kRightBumper.value)
                     .onTrue(new InstantCommand(swerveSubSystem::zeroGyro));
 
+    new JoystickButton(driveController, XboxController.Button.kStart.value)
+                    .onTrue(new InstantCommand(musicSubSystem::startMusic));
+    new JoystickButton(driveController, XboxController.Button.kBack.value)
+                    .onTrue(new InstantCommand(musicSubSystem::pauseMusic));
 //    Bind intake button
     new JoystickButton(operatorController, XboxController.Button.kA.value)
             .onTrue(new InstantCommand(collectSubSystem::setCollect));
