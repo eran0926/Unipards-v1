@@ -1,5 +1,6 @@
 package frc.robot.SubSystem;
 
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -36,15 +37,19 @@ public class ArmSubSystem extends SubsystemBase {
         mArmMotor.getPIDController().setD(Constants.ARM_PID[2], 0);
         mArmMotor.getPIDController().setFF(Constants.ARM_PID[3], 0);
         mArmMotor.setSmartCurrentLimit(Constants.ARM_CURRENT_LIMIT);
+//        TODO:fix soft limit
+        mArmMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.ARM_FORWARD_SOFT_LIMIT);
+        mArmMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.ARM_REVERSE_SOFT_LIMIT);
         mArmMotor.setIdleMode(Constants.ARM_NEUTRAL_MODE);
         mArmMotor.setInverted(Inverted);
         mArmMotorEncoder.setPosition(0);
-        mArmMotorEncoder.setPositionConversionFactor(Constants.ARM_GEAR_RATIO);
-        mArmMotorEncoder.setVelocityConversionFactor(Constants.ARM_GEAR_RATIO / 60.0);
+//        mArmMotorEncoder.setPositionConversionFactor(Constants.ARM_GEAR_RATIO);
+//        mArmMotorEncoder.setVelocityConversionFactor(Constants.ARM_GEAR_RATIO / 60.0);
         mArmMotor.burnFlash();
     }
 
     public void setArm(double setPoint) {
+        SmartDashboard.putNumber("ArmRefference", setPoint);
         mArmMotorLeft.getPIDController().setReference(setPoint, CANSparkMax.ControlType.kPosition);
         mArmMotorRight.getPIDController().setReference(setPoint, CANSparkMax.ControlType.kPosition);
     }
@@ -65,5 +70,10 @@ public class ArmSubSystem extends SubsystemBase {
     public void toSpeakerPosition() {
         position = Constants.ARM_POSITIONS.get(Constants.ArmPosition.SPEAKER);
         setArm(position);
+    }
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Left Arm Position", mArmEncoderLeft.getPosition());
+        SmartDashboard.putNumber("Right Arm Position", mArmEncoderRight.getPosition());
     }
 }
