@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Commands.drive.SwerveCommands;
+import frc.robot.SubSystem.ArmSubSystem;
 import frc.robot.SubSystem.CollectSubSystem;
 import frc.robot.SubSystem.ShootSubSystem;
 import frc.robot.SubSystem.SwerveSubSystem;
@@ -21,6 +22,7 @@ public class RobotContainer {
   private final SwerveSubSystem swerveSubSystem = new SwerveSubSystem();
   private final CollectSubSystem collectSubSystem = new CollectSubSystem();
   private final ShootSubSystem shootSubSystem = new ShootSubSystem();
+  private final ArmSubSystem armSubSystem = new ArmSubSystem();
   public RobotContainer() {
     swerveSubSystem.setDefaultCommand(new SwerveCommands(
       swerveSubSystem,
@@ -54,6 +56,13 @@ public class RobotContainer {
             .onTrue(new InstantCommand(shootSubSystem::disableableShoot));
     new JoystickButton(operatorController, XboxController.Button.kRightBumper.value)
             .onTrue(new InstantCommand(shootSubSystem::reverseShoot));
+
+    new JoystickButton(operatorController, XboxController.Button.kStart.value)
+            .onTrue(new InstantCommand(armSubSystem::toCollectPosition));
+    new JoystickButton(operatorController, XboxController.Button.kBack.value)
+            .onTrue(new InstantCommand(armSubSystem::toSpeakerPosition
+            ));
+
   }
   public void robotInit(){
     //swerveSubSystem.zeroGyro();

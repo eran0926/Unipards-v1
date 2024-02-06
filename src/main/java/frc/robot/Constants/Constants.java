@@ -80,7 +80,7 @@ public class Constants {
     public static final double COLLECT_SPEED = 1000;
 
     public static final boolean SHOOT_INVERTED = true;
-    public static final double SHOOT_SPEED = 1500;
+    public static final double SHOOT_SPEED = 1200;
     public static final double SHOOT_OPENLOOPRAMP = 0.6;
     public static final double SHOOT_CLOSELOOPRAMP = 0.0;
     public static final int SHOOT_CURRENT_LIMIT = 35;
@@ -94,12 +94,14 @@ public class Constants {
     public static final double ARM_GEAR_RATIO = 1.0/(2.0*100.0);
 
     public enum ArmPosition {
+        LOWEST,
         AMP,
         SPEAKER,
         COLLECT
     }
     public static HashMap<ArmPosition,Integer> ARM_POSITIONS = new HashMap<ArmPosition,Integer>(){
         {
+            put(ArmPosition.LOWEST, 0);
             put(ArmPosition.AMP, 58);
             put(ArmPosition.SPEAKER, 42);
             put(ArmPosition.COLLECT, 4);
