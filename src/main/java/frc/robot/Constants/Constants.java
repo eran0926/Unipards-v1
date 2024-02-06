@@ -54,6 +54,9 @@ public class Constants {
     public static final double SWERVE_DRIVE_KV = (1.51/MAX_VOLTAGE);
     public static final double SWERVE_DRIVE_KA = (0.27/MAX_VOLTAGE);
 
+    public static final double SWERVE_AUTO_XY_PID[] = {5.0, 0.0, 0.0}; // TO DO : Using Tuner.
+    public static final double SWERVE_AUTO_Z_PID[] = {5.0, 0.0, 0.0}; 
+
     public static final double SWERVE_DRIVE_MOTOR_OPENLOOPRAMP = 0.25;
     public static final double SWERVE_DRIVE_MOTOR_CLOSELOOPRAMP = 0.0;
 
@@ -61,7 +64,7 @@ public class Constants {
     public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
     public static final NeutralModeValue ANGLE_NEUTRAL_MODE = NeutralModeValue.Coast;
 
-    public static final double DRIVEJOYSTICK_DEADBAND = 0.08;
+    public static final double DRIVEJOYSTICK_DEADBAND = 0.07;
 
     public static final SwerveDriveKinematics SwerveDriveKinematics = new SwerveDriveKinematics(
         new Translation2d(SWERVE_CHASSIS_TRACKWIDTH_METERS / 2, SWERVE_CHASSIS_WHEELBASE_METERS / 2),

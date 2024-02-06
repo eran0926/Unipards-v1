@@ -1,6 +1,7 @@
 package frc.robot.SubSystem;
 
 import com.ctre.phoenix6.Orchestra;
+import com.ctre.phoenix6.configs.AudioConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants.RobotMap;
 
@@ -24,7 +25,7 @@ public class MusicSubSystem {
 
   private void configAudio() {
     configAudioMotor();
-    orchestra.loadMusic("flag_songchrp.chrp");
+    orchestra.loadMusic("flag.chrp");
   }
 
   private void configAudioMotor() {
@@ -36,14 +37,15 @@ public class MusicSubSystem {
     mBackLeftAngleMotor = new TalonFX(RobotMap.BACK_LEFT_ANGLE_MOTOR_ID);
     mBackRightAngleMotor = new TalonFX(RobotMap.BACK_RIGHT_ANGLE_MOTOR_ID);
     mFrontRightAngleMotor = new TalonFX(RobotMap.FRONT_RIGHT_ANGLE_MOTOR_ID);
-    orchestra.addInstrument(mFrontLeftDriveMotor);
-    orchestra.addInstrument(mBackLeftDriveMotor);
-    orchestra.addInstrument(mBackRightDriveMotor);
-    orchestra.addInstrument(mFrontRightDriveMotor);
-    orchestra.addInstrument(mFrontLeftAngleMotor);
-    orchestra.addInstrument(mBackLeftAngleMotor);
-    orchestra.addInstrument(mBackRightAngleMotor);
-    orchestra.addInstrument(mFrontRightAngleMotor);
+    configAudio(mFrontLeftAngleMotor);
+    configAudio(mBackLeftAngleMotor);
+    configAudio(mBackRightAngleMotor);
+    configAudio(mFrontRightAngleMotor);
+    configAudio(mFrontLeftDriveMotor);
+    configAudio(mBackLeftDriveMotor);
+    configAudio(mBackRightDriveMotor);
+    configAudio(mFrontRightDriveMotor);
+    
   }
 
   //  public void addSong(String song) {
@@ -57,5 +59,12 @@ public class MusicSubSystem {
   }
   public void pauseMusic() {
     orchestra.pause();
+  }
+  public void configAudio(TalonFX motor){
+    AudioConfigs MusicConfigs = new AudioConfigs();
+    MusicConfigs.AllowMusicDurDisable = true;
+    orchestra.addInstrument(motor);
+    motor.getConfigurator().apply(MusicConfigs);
+    
   }
 }

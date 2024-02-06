@@ -66,6 +66,9 @@ public class RobotContainer {
             ));
 
   }
+  public Command getDisableCommand(){
+        return new InstantCommand(musicSubSystem::startMusic);
+  }
   public void robotInit(){
     //swerveSubSystem.zeroGyro();
   }
@@ -73,4 +76,5 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
+  
 }
