@@ -6,17 +6,14 @@ import com.ctre.phoenix6.configs.CANcoderConfiguration;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
-
+import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
+
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -29,12 +26,11 @@ import frc.lib.util.SwerveTypeConstants;
 import frc.robot.Constants.Constants;
 import frc.robot.Constants.RobotMap;
 
-import javax.print.attribute.Attribute;
 
 
 public class swerveModule {
     public int moduleNumber;
-    private SwerveTypeConstants swerveTypeConstants ;
+    private SwerveTypeConstants swerveTypeConstants;
     private Rotation2d angleOffset ;
 
 
@@ -46,7 +42,8 @@ public class swerveModule {
     //private RelativeEncoder mAngleEncoder;
     private final DutyCycleOut driveDutyCycle = new DutyCycleOut(0);
     private final VelocityVoltage driveVelocityVoltage = new VelocityVoltage(0);
-    private final PositionVoltage anglePositionVoltage = new PositionVoltage(0);
+    private final PositionVoltage anglePositionDutyCycle = new PositionVoltage(0);
+    
     //private final PositionVoltage ANGLE_POSITION = new PositionVoltage(0);
 
     private final SimpleMotorFeedforward fMotorFeedforward = new SimpleMotorFeedforward(
@@ -66,6 +63,7 @@ public class swerveModule {
         mDriveConfig();
         mAngleFalcon = new TalonFX(angleMotorID,RobotMap.SWERVE_CANBUS_TYPE);
         mAngleConfig();
+        resetToAbosolute();
         //mAngleEncoder = mAngleNeo.getEncoder();
 
         //lastAngle = getState().angle;
@@ -92,7 +90,7 @@ public class swerveModule {
         }
     }
     private void setAngle(SwerveModuleState desiredState){
-        mAngleFalcon.setControl(anglePositionVoltage.withPosition(desiredState.angle.getDegrees()));
+        mAngleFalcon.setControl(anglePositionDutyCycle.withPosition(180*desiredState.angle.getDegrees()));
     }
 
     public SwerveModuleState getState() {
@@ -111,7 +109,7 @@ public class swerveModule {
     
     private Rotation2d getAngle(){
         //System.out.printf("%.2f",mRelativeEncoder.getPosition());
-        return Rotation2d.fromDegrees(mAngleFalcon.getPosition().getValue());
+        return Rotation2d.fromDegrees(180*mAngleFalcon.getPosition().getValue());
         // Rotation.fromDegrees(Convertions.falconToDegrees(mAngleFalcon.getPosition().getValue(),1));
     }
 
@@ -149,7 +147,7 @@ public class swerveModule {
     public void resetToAbosolute(){
         double absolute = (getCanCoder().getDegrees() - angleOffset.getDegrees());
         //System.out.printf("%.2f",absolute);
-           mAngleFalcon.setPosition(Convertions.degreesToFalcon(absolute));
+        mAngleFalcon.setPosition(Convertions.degreesToFalcon(absolute));
     }
     
     private void mAngleConfig(){
@@ -168,6 +166,7 @@ TalonFXConfiguration angleConfig = new TalonFXConfiguration();
 
         angleConfig.Feedback.SensorToMechanismRatio = swerveTypeConstants.angleGearRadio;
         angleConfig.ClosedLoopGeneral.ContinuousWrap = true;
+        mAngleFalcon.getConfigurator().apply(angleConfig);
 
 
 

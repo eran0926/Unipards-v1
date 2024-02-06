@@ -16,7 +16,7 @@ import frc.robot.SubSystem.SwerveSubSystem;
 public class RobotContainer {
   private final XboxController driveController = new XboxController(0);
   // wait until operating system has been designed.
-   private final XboxController operatorController = new XboxController(1);
+  //private final XboxController operatorController = new XboxController(1);
   private final SwerveSubSystem swerveSubSystem = new SwerveSubSystem();
   private final CollectSubSystem collectSubSystem = new CollectSubSystem();
   public RobotContainer() {
@@ -36,12 +36,12 @@ public class RobotContainer {
   private void configureBindings() {
     new JoystickButton(driveController, XboxController.Button.kRightBumper.value)
                     .onTrue(new InstantCommand(swerveSubSystem::zeroGyro));
-    new JoystickButton(operatorController, XboxController.Button.kA.value)
-            .onTrue(new InstantCommand(collectSubSystem::setCollect));
-    new JoystickButton(operatorController, XboxController.Button.kB.value)
-            .onTrue(new InstantCommand(collectSubSystem::stopCollect));
-    new JoystickButton(operatorController, XboxController.Button.kRightBumper.value)
-            .onTrue(new InstantCommand(collectSubSystem::reverseCollect));
+    // new JoystickButton(operatorController, XboxController.Button.kA.value)
+    //         .onTrue(new InstantCommand(collectSubSystem::setCollect));
+    // new JoystickButton(operatorController, XboxController.Button.kB.value)
+    //         .onTrue(new InstantCommand(collectSubSystem::stopCollect));
+    // new JoystickButton(operatorController, XboxController.Button.kRightBumper.value)
+    //         .onTrue(new InstantCommand(collectSubSystem::reverseCollect));
   }
   public void robotInit(){
     //swerveSubSystem.zeroGyro();
