@@ -8,8 +8,8 @@ import frc.robot.Constants.Constants;
 import frc.robot.Constants.RobotMap;
 
 public class CollectSubSystem extends SubsystemBase {
-  private CANSparkMax mCollectIntake;
-  private RelativeEncoder mCollectEncoder;
+  private static CANSparkMax mCollectIntake;
+  private static RelativeEncoder mCollectEncoder;
   private boolean intakeEnabled = false;
   public boolean isReverse = false;
 
@@ -21,6 +21,7 @@ public class CollectSubSystem extends SubsystemBase {
 
   private void collectConfig() {
     mCollectIntake.restoreFactoryDefaults();
+
     mCollectIntake.getPIDController().setP(Constants.COLLECT_PID[0], 0);
     mCollectIntake.getPIDController().setI(Constants.COLLECT_PID[1], 0);
     mCollectIntake.getPIDController().setD(Constants.COLLECT_PID[2], 0);

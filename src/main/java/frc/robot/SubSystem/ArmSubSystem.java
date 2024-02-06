@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMMotorController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Constants;
 import frc.robot.Constants.RobotMap;
@@ -14,19 +15,21 @@ public class ArmSubSystem extends SubsystemBase {
     private RelativeEncoder mArmEncoderLeft;
     private RelativeEncoder mArmEncoderRight;
 
+    private double position;
+
 
     public ArmSubSystem() {
         mArmMotorLeft = new CANSparkMax(RobotMap.ARM_LEFT_MOTOR_ID, CANSparkMax.MotorType.kBrushless);
         mArmMotorRight = new CANSparkMax(RobotMap.ARM_RIGHT_MOTOR_ID, CANSparkMax.MotorType.kBrushless);
         mArmEncoderLeft = mArmMotorLeft.getEncoder();
         mArmEncoderRight = mArmMotorRight.getEncoder();
-        armConfig(mArmMotorLeft, mArmEncoderLeft);
-        armConfig(mArmMotorRight, mArmEncoderRight);
+        armConfig(mArmMotorLeft, mArmEncoderLeft, false);
+        armConfig(mArmMotorRight, mArmEncoderRight, true);
 
 
     }
 
-    private void armConfig(CANSparkMax mArmMotor, RelativeEncoder mArmMotorEncoder){
+    private void armConfig(CANSparkMax mArmMotor, RelativeEncoder mArmMotorEncoder, boolean Inverted){
         mArmMotor.restoreFactoryDefaults();
         mArmMotor.getPIDController().setP(Constants.ARM_PID[0], 0);
         mArmMotor.getPIDController().setI(Constants.ARM_PID[1], 0);
@@ -34,13 +37,33 @@ public class ArmSubSystem extends SubsystemBase {
         mArmMotor.getPIDController().setFF(Constants.ARM_PID[3], 0);
         mArmMotor.setSmartCurrentLimit(Constants.ARM_CURRENT_LIMIT);
         mArmMotor.setIdleMode(Constants.ARM_NEUTRAL_MODE);
+        mArmMotor.setInverted(Inverted);
+        mArmMotorEncoder.setPosition(0);
         mArmMotorEncoder.setPositionConversionFactor(Constants.ARM_GEAR_RATIO);
         mArmMotorEncoder.setVelocityConversionFactor(Constants.ARM_GEAR_RATIO / 60.0);
         mArmMotor.burnFlash();
     }
 
-    public void setArm(int setPoint) {
+    public void setArm(double setPoint) {
         mArmMotorLeft.getPIDController().setReference(setPoint, CANSparkMax.ControlType.kPosition);
         mArmMotorRight.getPIDController().setReference(setPoint, CANSparkMax.ControlType.kPosition);
+    }
+
+    public void toLowest() {
+        position = Constants.ARM_POSITIONS.get(Constants.ArmPosition.LOWEST);
+        setArm(position);
+    }
+
+    public void toCollectPosition() {
+        position = Constants.ARM_POSITIONS.get(Constants.ArmPosition.COLLECT);
+        setArm(position);
+    }
+    public void toAmpPosition() {
+        position = Constants.ARM_POSITIONS.get(Constants.ArmPosition.AMP);
+        setArm(position);
+    }
+    public void toSpeakerPosition() {
+        position = Constants.ARM_POSITIONS.get(Constants.ArmPosition.SPEAKER);
+        setArm(position);
     }
 }
