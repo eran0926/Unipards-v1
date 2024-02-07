@@ -16,7 +16,7 @@ public class ArmSubSystem extends SubsystemBase {
     private RelativeEncoder mArmEncoderLeft;
     private RelativeEncoder mArmEncoderRight;
 
-    private double position;
+        private double position;
 
 
     public ArmSubSystem() {
