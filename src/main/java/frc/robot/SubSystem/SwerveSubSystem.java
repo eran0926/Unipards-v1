@@ -110,7 +110,7 @@ public class SwerveSubSystem extends SubsystemBase {
     }
 
     public Rotation2d getYaw(){
-       return (Constants.NAVX_INVERTED) ? Rotation2d.fromDegrees(360 - navX.getYaw()) : Rotation2d.fromDegrees(navX.getYaw());
+       return (Constants.NAVX_INVERTED) ? Rotation2d.fromRotations(1 - navX.getYaw()) : Rotation2d.fromDegrees(navX.getYaw());
     }
     public void resetModulesToAbsolute(){
         for(swerveModule module : swerveModules){
