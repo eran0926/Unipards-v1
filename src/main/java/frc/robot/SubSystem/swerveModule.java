@@ -20,6 +20,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.convert.Convertions;
 import frc.lib.util.ModuleState;
 import frc.lib.util.SwerveTypeConstants;
@@ -90,7 +91,8 @@ public class swerveModule {
         }
     }
     private void setAngle(SwerveModuleState desiredState){
-        System.out.println(desiredState.angle.getRotations());
+//        System.out.println(desiredState.angle.getRotations());
+        SmartDashboard.putNumber(mAngleFalcon.getDeviceID() + "Angle", desiredState.angle.getDegrees());
         mAngleFalcon.setControl(anglePositionDutyCycle.withPosition(desiredState.angle.getRotations()));
 //        mAngleFalcon.setControl(anglePositionDutyCycle.withPosition(1));
     }
@@ -111,12 +113,12 @@ public class swerveModule {
     
     private Rotation2d getAngle(){
         //System.out.printf("%.2f",mRelativeEncoder.getPosition());
-        return Rotation2d.fromDegrees(180*mAngleFalcon.getPosition().getValue());
+        return Rotation2d.fromRotations(mAngleFalcon.getPosition().getValue()%360);
         // Rotation.fromDegrees(Convertions.falconToDegrees(mAngleFalcon.getPosition().getValue(),1));
     }
 
     public Rotation2d getCanCoder(){
-        return Rotation2d.fromDegrees(Convertions.canCoderToDegrees(mAngleCanCoder.getAbsolutePosition().getValue()));
+        return Rotation2d.fromRotations(mAngleCanCoder.getAbsolutePosition().getValue()%360);
     }
     
     
