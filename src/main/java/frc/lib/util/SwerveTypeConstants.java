@@ -39,7 +39,8 @@ public class SwerveTypeConstants {
         InvertedValue angleMotorInverted = InvertedValue.CounterClockwise_Positive;
         InvertedValue canCoderInverted = InvertedValue.Clockwise_Positive;
 
-        double anglePIDF[] = {1.0, 0.0, 0.0};
+        double anglePIDF[] = {24, 0.0, 0.1};
+//        double anglePIDF[] = {100.0, 0.0, 0.2};
         return new SwerveTypeConstants(
             wheelDiameter, angleGearRadio,driveGearRadio,
             anglePIDF, 

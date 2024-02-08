@@ -61,7 +61,7 @@ public class SwerveSubSystem extends SubsystemBase {
         Timer.delay(1.0);
 
         resetModulesToAbsolute();
-       
+
         swerveDriveKinematics = Constants.SwerveDriveKinematics;
         swerveDriveOdometry = new SwerveDriveOdometry(swerveDriveKinematics, getYaw(), getModulePositions());
     }

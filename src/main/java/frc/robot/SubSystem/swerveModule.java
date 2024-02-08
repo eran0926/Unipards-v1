@@ -27,8 +27,8 @@ import frc.robot.Constants.Constants;
 import frc.robot.Constants.RobotMap;
 
 
-
 public class swerveModule {
+
     public int moduleNumber;
     private SwerveTypeConstants swerveTypeConstants;
     private Rotation2d angleOffset ;
@@ -90,7 +90,9 @@ public class swerveModule {
         }
     }
     private void setAngle(SwerveModuleState desiredState){
-        mAngleFalcon.setControl(anglePositionDutyCycle.withPosition(180*desiredState.angle.getDegrees()));
+        System.out.println(desiredState.angle.getRotations());
+        mAngleFalcon.setControl(anglePositionDutyCycle.withPosition(desiredState.angle.getRotations()));
+//        mAngleFalcon.setControl(anglePositionDutyCycle.withPosition(1));
     }
 
     public SwerveModuleState getState() {
