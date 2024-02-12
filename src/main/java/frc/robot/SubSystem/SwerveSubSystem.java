@@ -95,7 +95,7 @@ public class SwerveSubSystem extends SubsystemBase {
     public Pose2d getPose(){
         return swerveDriveOdometry.getPoseMeters();
     }
-    public Rotation2d geRotation2d(){
+    public Rotation2d getRotation2d(){
         return navX.getRotation2d();
     }
     public void reseetOdometry(Pose2d pose){
@@ -106,11 +106,12 @@ public class SwerveSubSystem extends SubsystemBase {
         for (swerveModule module : swerveModules){
             modulePositions[module.moduleNumber] = module.getPosition();
         }
+
         return modulePositions;
     }
 
     public Rotation2d getYaw(){
-       return (Constants.NAVX_INVERTED) ? Rotation2d.fromRotations(1 - navX.getYaw()) : Rotation2d.fromDegrees(navX.getYaw());
+       return (Constants.NAVX_INVERTED) ? Rotation2d.fromDegrees(360 - navX.getYaw()) : Rotation2d.fromDegrees(navX.getYaw());
     }
     public void resetModulesToAbsolute(){
         for(swerveModule module : swerveModules){
@@ -118,6 +119,7 @@ public class SwerveSubSystem extends SubsystemBase {
         }
     }
     public void zeroGyro(){
+        System.out.println("asdfghjkl");
         navX.reset();
     }
     public SwerveModuleState[] getModuleStates(){

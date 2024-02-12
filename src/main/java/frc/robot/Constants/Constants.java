@@ -35,7 +35,7 @@ public final static Rotation2d FRONT_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(
     public static final double SWERVE_CHASSIS_TRACKWIDTH_METERS = 0.62865;
     public static final double SWERVE_CHASSIS_WHEELBASE_METERS = 0.62865;
     public static final double SWERVE_WHEEL_CIRCUMFERENCE = Convertions.inchesToMeters(4.0) * Math.PI;
-    public static final double SWERVE_MAX_SPEED = 4.5; //Wait for test.
+    public static final double SWERVE_MAX_SPEED = 8; //Wait for test.
     public static final double SWERVE_MAX_ANGULAR_VELOCITY = 4.5;//Wait for test.
 
     public static final double SWERVE_POV_MOVE_SPEED = 0.2;
@@ -113,6 +113,7 @@ public final static Rotation2d FRONT_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(
             put(ArmPosition.LOWEST, 0);
             put(ArmPosition.AMP, 58);
             put(ArmPosition.SPEAKER, 42);
+//            put(ArmPosition.SPEAKER, 20);
             put(ArmPosition.COLLECT, 4);
         }
     };
