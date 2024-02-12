@@ -151,6 +151,7 @@ public class swerveModule {
     }
     public void resetToAbosolute(){
         double absolute = (getCanCoder().getDegrees() - angleOffset.getDegrees());
+        //System.out.printf("%.2f",absolute);
         mAngleFalcon.setPosition(Convertions.degreesToFalcon(absolute));
     }
     
