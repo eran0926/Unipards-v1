@@ -91,8 +91,7 @@ public class swerveModule {
         }
     }
     private void setAngle(SwerveModuleState desiredState){
-//        System.out.println(desiredState.angle.getRotations());
-        SmartDashboard.putNumber(mAngleFalcon.getDeviceID() + "Angle", desiredState.angle.getDegrees());
+//        System.out.println(desiredState.angle.getDegrees());
         mAngleFalcon.setControl(anglePositionDutyCycle.withPosition(desiredState.angle.getRotations()));
 //        mAngleFalcon.setControl(anglePositionDutyCycle.withPosition(1));
     }
@@ -113,12 +112,14 @@ public class swerveModule {
     
     private Rotation2d getAngle(){
         //System.out.printf("%.2f",mRelativeEncoder.getPosition());
-        return Rotation2d.fromRotations(mAngleFalcon.getPosition().getValue()%360);
+//        if (mAngleFalcon.getDeviceID() == 2)System.out.println(mAngleFalcon.getPosition().getValue());
+        return Rotation2d.fromRotations(mAngleFalcon.getPosition().getValue()%1);
         // Rotation.fromDegrees(Convertions.falconToDegrees(mAngleFalcon.getPosition().getValue(),1));
     }
 
     public Rotation2d getCanCoder(){
-        return Rotation2d.fromRotations(mAngleCanCoder.getAbsolutePosition().getValue()%360);
+//        if(mAngleCanCoder.getDeviceID() == 1)System.out.println(mAngleCanCoder.getAbsolutePosition().getValue());
+        return Rotation2d.fromRotations(mAngleCanCoder.getAbsolutePosition().getValue());
     }
     
     

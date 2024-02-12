@@ -20,7 +20,7 @@ public class RobotContainer {
   private final CollectSubSystem collectSubSystem = new CollectSubSystem();
   private final ShootSubSystem shootSubSystem = new ShootSubSystem();
   private final ArmSubSystem armSubSystem = new ArmSubSystem();
-  private final MusicSubSystem musicSubSystem = new MusicSubSystem();
+  //private final MusicSubSystem musicSubSystem = new MusicSubSystem();
   public RobotContainer() {
     swerveSubSystem.setDefaultCommand(new SwerveCommands(
       swerveSubSystem,
@@ -38,11 +38,13 @@ public class RobotContainer {
   private void configureBindings() {
     new JoystickButton(driveController, XboxController.Button.kRightBumper.value)
                     .onTrue(new InstantCommand(swerveSubSystem::zeroGyro));
-
+/*
     new JoystickButton(driveController, XboxController.Button.kStart.value)
                     .onTrue(new InstantCommand(musicSubSystem::startMusic));
     new JoystickButton(driveController, XboxController.Button.kBack.value)
                     .onTrue(new InstantCommand(musicSubSystem::pauseMusic));
+
+ */
 //    Bind intake button
     new JoystickButton(operatorController, XboxController.Button.kA.value)
             .onTrue(new InstantCommand(collectSubSystem::setCollect));
