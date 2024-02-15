@@ -22,14 +22,14 @@ public class Constants {
 
     public final static double MAX_VOLTAGE = 12.0;
 
-//    public final static Rotation2d FRONT_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(40.781250);
-//    public final static Rotation2d BACK_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(81.2790315);
-//    public final static Rotation2d BACK_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(100.634766);
-//    public final static Rotation2d FRONT_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(254.794922);
-public final static Rotation2d FRONT_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(69.2578125);
-    public final static Rotation2d BACK_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(204.873046875);
-    public final static Rotation2d BACK_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(-94.833984375);//85.166015625
-    public final static Rotation2d FRONT_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(152.40234375);//332.40234375
+//    public final static Rotation2d FRONT_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(69.2578125);
+//    public final static Rotation2d BACK_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(204.873046875);
+//    public final static Rotation2d BACK_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(-94.833984375);//85.166015625
+//    public final static Rotation2d FRONT_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(152.40234375);//332.40234375
+    public final static Rotation2d FRONT_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(63.369140625);
+    public final static Rotation2d BACK_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(334.86328125);
+    public final static Rotation2d BACK_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(289.3359375-180);//85.166015625
+    public final static Rotation2d FRONT_RIGHT_ANGLE_OFFSET = Rotation2d.fromDegrees(348.92578125-180);//332.40234375
 
     //
     public static final double SWERVE_CHASSIS_TRACKWIDTH_METERS = 0.62865;
@@ -112,8 +112,8 @@ public final static Rotation2d FRONT_LEFT_ANGLE_OFFSET = Rotation2d.fromDegrees(
         {
             put(ArmPosition.LOWEST, 0);
             put(ArmPosition.AMP, 58);
-            put(ArmPosition.SPEAKER, 42);
-//            put(ArmPosition.SPEAKER, 20);
+//            put(ArmPosition.SPEAKER, 42);
+            put(ArmPosition.SPEAKER, 20);
             put(ArmPosition.COLLECT, 4);
         }
     };
