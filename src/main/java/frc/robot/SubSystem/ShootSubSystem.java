@@ -12,7 +12,7 @@ public class ShootSubSystem extends SubsystemBase {
     private boolean shootEnabled = false;
     private boolean isInverted = false;
     public ShootSubSystem() {
-        mShootMotor = new CANSparkMax(RobotMap.SHOOT_MOTOR_ID, CANSparkMax.MotorType.kBrushless);
+        mShootMotor = new CANSparkMax(RobotMap.SHOOT_LEFT_MOTOR_ID, CANSparkMax.MotorType.kBrushless);
         mShootEncoder = mShootMotor.getEncoder();
         shootConfig();
     }

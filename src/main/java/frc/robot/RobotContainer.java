@@ -62,13 +62,13 @@ public class RobotContainer {
             .onTrue(new InstantCommand(shootSubSystem::reverseShoot));
 
     new JoystickButton(operatorController, XboxController.Button.kStart.value)
-            .onTrue(new InstantCommand(armSubSystem::toCollectPosition));
+            .onTrue(new InstantCommand(armSubSystem::AddSecondArmPosition));
     new JoystickButton(operatorController, XboxController.Button.kBack.value)
-            .onTrue(new InstantCommand(armSubSystem::toSpeakerPosition
+            .onTrue(new InstantCommand(armSubSystem::SubSecondArmPosition
             ));
 
-    new JoystickButton(operatorController, XboxController.Button.kLeftStick.value)
-            .onTrue(new InstantCommand(armSubSystem::toAmpPosition));
+//    new JoystickButton(operatorController, XboxController.Button.kLeftStick.value)
+//            .onTrue(new InstantCommand(armSubSystem::toAmpPosition));
 
   }
   public Command getDisableCommand(){
